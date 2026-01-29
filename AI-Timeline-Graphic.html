@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Development Timeline (1950–Present)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f1f5f9;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+        }
+
+        /* Timeline Container */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        /* Central vertical line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, #38bdf8 0%, #0284c7 50%, #06b6d4 100%);
+            top: 0;
+        }
+
+        /* Timeline events container */
+        .timeline-events {
+            position: relative;
+        }
+
+        /* Individual event */
+        .timeline-event {
+            margin-bottom: 50px;
+            display: flex;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stagger animation */
+        .timeline-event:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-event:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-event:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-event:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-event:nth-child(5) { animation-delay: 0.5s; }
+        .timeline-event:nth-child(6) { animation-delay: 0.6s; }
+        .timeline-event:nth-child(7) { animation-delay: 0.7s; }
+        .timeline-event:nth-child(8) { animation-delay: 0.8s; }
+        .timeline-event:nth-child(9) { animation-delay: 0.9s; }
+        .timeline-event:nth-child(10) { animation-delay: 1s; }
+        .timeline-event:nth-child(11) { animation-delay: 1.1s; }
+        .timeline-event:nth-child(12) { animation-delay: 1.2s; }
+        .timeline-event:nth-child(13) { animation-delay: 1.3s; }
+        .timeline-event:nth-child(14) { animation-delay: 1.4s; }
+        .timeline-event:nth-child(15) { animation-delay: 1.5s; }
+        .timeline-event:nth-child(16) { animation-delay: 1.6s; }
+        .timeline-event:nth-child(17) { animation-delay: 1.7s; }
+        .timeline-event:nth-child(18) { animation-delay: 1.8s; }
+        .timeline-event:nth-child(19) { animation-delay: 1.9s; }
+        .timeline-event:nth-child(20) { animation-delay: 2s; }
+        .timeline-event:nth-child(21) { animation-delay: 2.1s; }
+        .timeline-event:nth-child(22) { animation-delay: 2.2s; }
+
+        /* Left events */
+        .timeline-event.left {
+            flex-direction: row-reverse;
+        }
+
+        /* Content wrapper */
+        .timeline-content {
+            width: 48%;
+            padding: 0 30px;
+        }
+
+        /* Left content */
+        .timeline-event.left .timeline-content {
+            text-align: right;
+        }
+
+        /* Center dot marker */
+        .timeline-marker {
+            width: 20px;
+            height: 20px;
+            background: #38bdf8;
+            border: 4px solid #0f172a;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 15px;
+            transform: translateX(-50%);
+            z-index: 10;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 0 8px rgba(56, 189, 248, 0.1);
+        }
+
+        .timeline-event:hover .timeline-marker {
+            width: 28px;
+            height: 28px;
+            top: 11px;
+            box-shadow: 0 0 0 12px rgba(56, 189, 248, 0.2);
+            background: #0284c7;
+        }
+
+        /* Era-specific dot colors */
+        .timeline-event.era-foundations .timeline-marker { background: #f59e0b; border-color: #0f172a; }
+        .timeline-event.era-golden-years .timeline-marker { background: #ec4899; border-color: #0f172a; }
+        .timeline-event.era-first-winter .timeline-marker { background: #6366f1; border-color: #0f172a; }
+        .timeline-event.era-expert-systems .timeline-marker { background: #10b981; border-color: #0f172a; }
+        .timeline-event.era-preparation .timeline-marker { background: #f97316; border-color: #0f172a; }
+        .timeline-event.era-modern .timeline-marker { background: #38bdf8; border-color: #0f172a; }
+
+        /* Year label */
+        .timeline-year {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #38bdf8;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* Era badge */
+        .timeline-era {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .timeline-event.era-foundations .timeline-era { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+        .timeline-event.era-golden-years .timeline-era { background: rgba(236, 72, 153, 0.2); color: #f472b6; }
+        .timeline-event.era-first-winter .timeline-era { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
+        .timeline-event.era-expert-systems .timeline-era { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+        .timeline-event.era-preparation .timeline-era { background: rgba(249, 115, 22, 0.2); color: #fdba74; }
+        .timeline-event.era-modern .timeline-era { background: rgba(56, 189, 248, 0.2); color: #7dd3fc; }
+
+        /* Title */
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+        }
+
+        /* Description */
+        .timeline-description {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        /* Card styling */
+        .timeline-event:hover .timeline-content {
+            transform: translateX(0);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-event {
+                flex-direction: column !important;
+                margin-bottom: 40px;
+            }
+
+            .timeline-event.left {
+                flex-direction: column !important;
+            }
+
+            .timeline-content {
+                width: 100%;
+                padding: 0 0 0 80px !important;
+                text-align: left !important;
+            }
+
+            .timeline-marker {
+                left: 20px;
+            }
+
+            .timeline-year {
+                font-size: 1.5rem;
+            }
+
+            .timeline-title {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(56, 189, 248, 0.2);
+            justify-content: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.foundations { background: #f59e0b; }
+        .legend-dot.golden-years { background: #ec4899; }
+        .legend-dot.first-winter { background: #6366f1; }
+        .legend-dot.expert-systems { background: #10b981; }
+        .legend-dot.preparation { background: #f97316; }
+        .legend-dot.modern { background: #38bdf8; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(56, 189, 248, 0.2);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Development Timeline</h1>
+            <p class="subtitle">1950–Present | Major Milestones in Artificial Intelligence</p>
+        </header>
+
+        <div class="timeline">
+            <div class="timeline-events">
+                <!-- 1950 -->
+                <div class="timeline-event left era-foundations">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1950</span>
+                        <span class="timeline-era">Foundations</span>
+                        <h3 class="timeline-title">Turing's Foundational Question</h3>
+                        <p class="timeline-description">Alan Turing publishes "Computing Machinery and Intelligence," introducing the Turing Test as a measure of machine intelligence and establishing theoretical framework for AI research.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 1956 -->
+                <div class="timeline-event right era-foundations">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1956</span>
+                        <span class="timeline-era">Foundations</span>
+                        <h3 class="timeline-title">Dartmouth Workshop — Birth of AI</h3>
+                        <p class="timeline-description">McCarthy, Minsky, Rochester, and Shannon organize landmark workshop. The term "Artificial Intelligence" is officially coined, bringing researchers together under a unified banner.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 1963 -->
+                <div class="timeline-event left era-golden-years">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1963</span>
+                        <span class="timeline-era">Golden Years</span>
+                        <h3 class="timeline-title">SAIL Founded</h3>
+                        <p class="timeline-description">Stanford Artificial Intelligence Laboratory established by John McCarthy and Les Earnest. Becomes a major research hub for robotics, computer vision, and knowledge representation.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 1966 -->
+                <div class="timeline-event right era-golden-years">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1966</span>
+                        <span class="timeline-era">Golden Years</span>
+                        <h3 class="timeline-title">Robotic Innovations at SAIL</h3>
+                        <p class="timeline-description">Development of the Stanford Arm, a robotic arm precursor to industrial robots. Advances in image processing and computer vision work at SAIL.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 1967 -->
+                <div class="timeline-event left era-golden-years">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1967</span>
+                        <span class="timeline-era">Golden Years</span>
+                        <h3 class="timeline-title">ELIZA Chatbot</h3>
+                        <p class="timeline-description">Joseph Weizenbaum at MIT creates ELIZA, the first natural language processing chatbot. Simulates a Rogerian psychotherapist using pattern matching. Users become emotionally attached despite its simplicity.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 1974 -->
+                <div class="timeline-event right era-first-winter">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1974</span>
+                        <span class="timeline-era">First AI Winter</span>
+                        <h3 class="timeline-title">First AI Winter Begins</h3>
+                        <p class="timeline-description">High expectations from the 1960s go unmet due to computational limitations. Symbolic AI approaches hit fundamental barriers. DARPA dramatically cuts funding for general AI research.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 1980 -->
+                <div class="timeline-event left era-expert-systems">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1980</span>
+                        <span class="timeline-era">Expert Systems</span>
+                        <h3 class="timeline-title">Expert Systems Boom</h3>
+                        <p class="timeline-description">Renewed government funding from DARPA. Focus shifts to rule-based expert systems for domain-specific applications. Industry begins investing in specialized AI hardware.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 1986 -->
+                <div class="timeline-event right era-expert-systems">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1986</span>
+                        <span class="timeline-era">Expert Systems</span>
+                        <h3 class="timeline-title">Backpropagation Revolution</h3>
+                        <p class="timeline-description">Hinton, Rumelhart, and Williams publish "Learning Representations by Back-Propagating Errors" in Nature. Enables efficient training of multi-layer neural networks—foundation for modern deep learning.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 1997 -->
+                <div class="timeline-event left era-preparation">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1997</span>
+                        <span class="timeline-era">Preparation</span>
+                        <h3 class="timeline-title">Deep Blue vs. Kasparov</h3>
+                        <p class="timeline-description">IBM's Deep Blue defeats world chess champion Garry Kasparov. First computer to beat a reigning world champion under standard tournament conditions. Proves machines can excel at complex strategic tasks.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 2009 -->
+                <div class="timeline-event right era-preparation">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2009</span>
+                        <span class="timeline-era">Preparation</span>
+                        <h3 class="timeline-title">ImageNet Dataset Released</h3>
+                        <p class="timeline-description">Fei-Fei Li and team release ImageNet, a large-scale visual database with 14+ million labeled images. ImageNet Large Scale Visual Recognition Challenge (ILSVRC) becomes the benchmark driving computer vision advances.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 2010 -->
+                <div class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2010</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h3 class="timeline-title">DeepMind Founded</h3>
+                        <p class="timeline-description">Demis Hassabis and team establish DeepMind in London. Mission: "Solve intelligence." Combines deep learning with reinforcement learning to create AI capable of learning from raw experience.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 2012 -->
+                <div class="timeline-event right era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2012</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h3 class="timeline-title">AlexNet Wins ImageNet</h3>
+                        <p class="timeline-description">Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton's deep convolutional neural network wins ILSVRC by a massive margin. Reduces error rate from 26% to 15%. Watershed moment launching the deep learning revolution.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 2014 -->
+                <div class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2014</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h3 class="timeline-title">Google Acquires DeepMind</h3>
+                        <p class="timeline-description">Google acquires DeepMind for $400–650 million. DeepMind gains access to massive computational resources and integrates with Google infrastructure, accelerating research capabilities.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 2016 -->
+                <div class="timeline-event right era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2016</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h3 class="timeline-title">AlphaGo Defeats Lee Sedol</h3>
+                        <p class="timeline-description">DeepMind's AlphaGo defeats world Go champion Lee Sedol. Historic breakthrough: AI masters ancient game of Go (10^170 positions). Marks beginning of modern AI boom and mainstream enthusiasm.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 2017 -->
+                <div class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2017</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h3 class="timeline-title">Transformer Architecture Introduced</h3>
+                        <p class="timeline-description">Google researchers publish "Attention Is All You Need," introducing the transformer architecture. Self-attention mechanism revolutionizes sequence modeling. Becomes the foundation for GPT, BERT, and all modern large language models.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 2018 -->
+                <div class="timeline-event right era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2018</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h3 class="timeline-title">BERT Released</h3>
+                        <p class="timeline-description">Google releases BERT (Bidirectional Encoder Representations from Transformers). Pre-training on massive text enables state-of-the-art performance across 11 NLP tasks. Demonstrates the power of transfer learning in language understanding.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 2020 -->
+                <div class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2020</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h3 class="timeline-title">GPT-3 and AlphaFold</h3>
+                        <p class="timeline-description">OpenAI releases GPT-3 with 175 billion parameters, demonstrating remarkable few-shot learning abilities. DeepMind's AlphaFold wins CASP14, solving the 50-year protein folding problem with near-experimental accuracy (0.96 Å).</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 2021 -->
+                <div class="timeline-event right era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2021</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h3 class="timeline-title">Anthropic Founded</h3>
+                        <p class="timeline-description">Former OpenAI researchers Dario Amodei and Daniela Amodei establish Anthropic. Company focuses on AI safety research and developing reliable, interpretable, and steerable AI systems.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 2022 -->
+                <div class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2022</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h3 class="timeline-title">ChatGPT Goes Public</h3>
+                        <p class="timeline-description">OpenAI releases ChatGPT publicly on November 30, 2022. Reaches 1 million users in 5 days. Free and accessible interface brings conversational AI to billions of people worldwide.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 2023 -->
+                <div class="timeline-event right era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2023</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h3 class="timeline-title">Generative AI Explosion</h3>
+                        <p class="timeline-description">Microsoft-OpenAI partnership announced. GitHub releases Copilot with GPT-4. Anthropic releases Claude. Multiple companies race to integrate LLMs into products. Academic and commercial sectors accelerate AI adoption.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+
+                <!-- 2023 Google DeepMind -->
+                <div class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2023</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h3 class="timeline-title">Google DeepMind Formation</h3>
+                        <p class="timeline-description">DeepMind merges with Google Brain to form Google DeepMind. Consolidates Google's AI efforts under unified leadership in response to competitive pressure from OpenAI.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot foundations"></div>
+                <span>Foundations (1950s)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot golden-years"></div>
+                <span>Golden Years (1960s–1970s)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot first-winter"></div>
+                <span>First AI Winter (1974–1980)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot expert-systems"></div>
+                <span>Expert Systems Era (1980s–1990s)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot preparation"></div>
+                <span>Preparation Era (1990s–2010s)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot modern"></div>
+                <span>Modern AI Era (2010s–Present)</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>Timeline created for educational purposes | Data sourced from historical AI research and academic institutions</p>
+        </footer>
+    </div>
+</body>
+</html>
