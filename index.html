@@ -5,6 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Development Timeline (1950–Present)</title>
     <style>
+        :root {
+            /* Dark mode colors (default) */
+            --bg-gradient-start: #0f172a;
+            --bg-gradient-end: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --timeline-line: linear-gradient(180deg, #38bdf8 0%, #0284c7 50%, #06b6d4 100%);
+            --card-bg: rgba(15, 23, 42, 0.98);
+            --border-color: rgba(56, 189, 248, 0.2);
+            --marker-border: #0f172a;
+        }
+
+        [data-theme="light"] {
+            --bg-gradient-start: #f8fafc;
+            --bg-gradient-end: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #475569;
+            --timeline-line: linear-gradient(180deg, #0284c7 0%, #0ea5e9 50%, #06b6d4 100%);
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --border-color: rgba(2, 132, 199, 0.3);
+            --marker-border: #ffffff;
+        }
+
+        /* Detect system preference */
+        @media (prefers-color-scheme: light) {
+            :root:not([data-theme="dark"]) {
+                --bg-gradient-start: #f8fafc;
+                --bg-gradient-end: #e2e8f0;
+                --text-primary: #0f172a;
+                --text-secondary: #334155;
+                --text-muted: #475569;
+                --timeline-line: linear-gradient(180deg, #0284c7 0%, #0ea5e9 50%, #06b6d4 100%);
+                --card-bg: rgba(255, 255, 255, 0.95);
+                --border-color: rgba(2, 132, 199, 0.3);
+                --marker-border: #ffffff;
+            }
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,10 +53,41 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #f1f5f9;
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+            color: var(--text-primary);
             padding: 40px 20px;
             line-height: 1.6;
+            min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: 2px solid #38bdf8;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(56, 189, 248, 0.3);
+        }
+
+        .theme-toggle:active {
+            transform: scale(0.95);
         }
 
         .container {
@@ -40,7 +111,7 @@
 
         .subtitle {
             font-size: 1.25rem;
-            color: #cbd5e1;
+            color: var(--text-secondary);
         }
 
         /* Timeline Container */
@@ -57,7 +128,7 @@
             transform: translateX(-50%);
             width: 3px;
             height: 100%;
-            background: linear-gradient(180deg, #38bdf8 0%, #0284c7 50%, #06b6d4 100%);
+            background: var(--timeline-line);
             top: 0;
         }
 
@@ -73,7 +144,7 @@
             left: 50%;
             transform: translateX(-50%);
             margin-bottom: 10px;
-            background: rgba(15, 23, 42, 0.98);
+            background: var(--card-bg);
             border: 2px solid #38bdf8;
             border-radius: 8px;
             padding: 12px 16px;
@@ -82,7 +153,7 @@
             pointer-events: none;
             transition: opacity 0.3s ease;
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
         }
 
         .timeline-content {
@@ -205,7 +276,7 @@
             width: 20px;
             height: 20px;
             background: #38bdf8;
-            border: 4px solid #0f172a;
+            border: 4px solid var(--marker-border);
             border-radius: 50%;
             position: absolute;
             left: 50%;
@@ -225,12 +296,12 @@
         }
 
         /* Era-specific dot colors */
-        .timeline-event.era-foundations .timeline-marker { background: #f59e0b; border-color: #0f172a; }
-        .timeline-event.era-golden-years .timeline-marker { background: #ec4899; border-color: #0f172a; }
-        .timeline-event.era-funding-shift .timeline-marker { background: #6366f1; border-color: #0f172a; }
-        .timeline-event.era-expert-systems .timeline-marker { background: #10b981; border-color: #0f172a; }
-        .timeline-event.era-preparation .timeline-marker { background: #f97316; border-color: #0f172a; }
-        .timeline-event.era-modern .timeline-marker { background: #38bdf8; border-color: #0f172a; }
+        .timeline-event.era-foundations .timeline-marker { background: #f59e0b; border-color: var(--marker-border); }
+        .timeline-event.era-golden-years .timeline-marker { background: #ec4899; border-color: var(--marker-border); }
+        .timeline-event.era-funding-shift .timeline-marker { background: #6366f1; border-color: var(--marker-border); }
+        .timeline-event.era-expert-systems .timeline-marker { background: #10b981; border-color: var(--marker-border); }
+        .timeline-event.era-preparation .timeline-marker { background: #f97316; border-color: var(--marker-border); }
+        .timeline-event.era-modern .timeline-marker { background: #38bdf8; border-color: var(--marker-border); }
 
         /* Year label */
         .timeline-year {
@@ -260,18 +331,26 @@
         .timeline-event.era-preparation .timeline-era { background: rgba(249, 115, 22, 0.2); color: #fdba74; }
         .timeline-event.era-modern .timeline-era { background: rgba(56, 189, 248, 0.2); color: #7dd3fc; }
 
+        /* Light mode era badge colors - higher contrast */
+        [data-theme="light"] .timeline-event.era-foundations .timeline-era { background: rgba(245, 158, 11, 0.15); color: #92400e; }
+        [data-theme="light"] .timeline-event.era-golden-years .timeline-era { background: rgba(236, 72, 153, 0.15); color: #9f1239; }
+        [data-theme="light"] .timeline-event.era-funding-shift .timeline-era { background: rgba(99, 102, 241, 0.15); color: #3730a3; }
+        [data-theme="light"] .timeline-event.era-expert-systems .timeline-era { background: rgba(16, 185, 129, 0.15); color: #065f46; }
+        [data-theme="light"] .timeline-event.era-preparation .timeline-era { background: rgba(249, 115, 22, 0.15); color: #9a3412; }
+        [data-theme="light"] .timeline-event.era-modern .timeline-era { background: rgba(56, 189, 248, 0.15); color: #075985; }
+
         /* Title */
         .timeline-title {
             font-size: 1.5rem;
             font-weight: 600;
-            color: #f1f5f9;
+            color: var(--text-primary);
             margin-bottom: 8px;
         }
 
         /* Description */
         .timeline-description {
             font-size: 0.95rem;
-            color: #cbd5e1;
+            color: var(--text-secondary);
             line-height: 1.7;
         }
 
@@ -354,13 +433,17 @@
             text-align: center;
             margin-top: 80px;
             padding-top: 40px;
-            border-top: 1px solid rgba(56, 189, 248, 0.2);
-            color: #94a3b8;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
             font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span id="themeIcon">🌙</span>
+    </button>
+    
     <div class="container">
         <header>
             <h1>AI Development Timeline</h1>
@@ -667,5 +750,46 @@
             <p style="margin-top: 10px;">&copy; 2026 <a href="https://cantus.us" target="_blank" style="color: #38bdf8; text-decoration: none;">Sable Cantus</a></p>
         </footer>
     </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to system preference
+        function getPreferredTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                return savedTheme;
+            }
+            // Check system preference
+            return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+
+        // Set theme
+        function setTheme(theme) {
+            html.setAttribute('data-theme', theme);
+            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+            localStorage.setItem('theme', theme);
+        }
+
+        // Initialize theme
+        setTheme(getPreferredTheme());
+
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'light' : 'dark');
+            }
+        });
+    </script>
 </body>
 </html>
