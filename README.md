@@ -21,15 +21,15 @@ Several major milestones and figures on this timeline have inspired acclaimed fi
 
 | Era / Milestone | Title | Format | Focus |
 | :--- | :--- | :--- | :--- |
-| **1950 (Foundations)** | [*The Imitation Game* (2014)](https://www.imdb.com/title/tt2084970/) | Feature Film | Alan Turing, Bletchley Park, and the conceptual roots of machine cognition |
-| **1950 (Foundations)** | [*Codebreaker* (2011)](https://www.imdb.com/title/tt2119396/) | Docudrama | Turing's post-war life, the 1950 Turing Test, and his enduring legacy |
-| **1966 (Golden Years)** | [*Plug & Pray* (2010)](https://www.imdb.com/title/tt1699564/) | Documentary | Joseph Weizenbaum on creating ELIZA and early AI ethics |
-| **1980s (Expert Systems)** | [*Computer Chess* (2013)](https://www.imdb.com/title/tt2218810/) | Feature Film | The eccentric 1980s pioneer culture of mainframe chess algorithms |
-| **1997 (Preparation)** | [*Game Over: Kasparov and the Machine* (2003)](https://www.imdb.com/title/tt0382729/) | Documentary | The dramatic 1997 rematch between Garry Kasparov and IBM Deep Blue |
-| **2016 (Modern Era)** | [*AlphaGo* (2017)](https://www.imdb.com/title/tt6700324/) | Documentary | DeepMind's historic Go showdown in Seoul against Lee Sedol |
-| **2020 (Modern Era)** | [*The Thinking Game* (2024)](https://www.imdb.com/title/tt32314995/) | Documentary | Demis Hassabis, Google DeepMind, and solving protein folding with AlphaFold |
-| **2021 (Modern Era)** | [*Coded Bias* (2020)](https://www.imdb.com/title/tt11394170/) | Documentary | Joy Buolamwini, Timnit Gebru, and the ethical critique of large models |
-| **Modern Era (General)** | [*iHuman* (2019)](https://www.imdb.com/title/tt11162464/) | Documentary | Ilya Sutskever, Jürgen Schmidhuber, and the race toward artificial general intelligence |
+| **1950 (Foundations)** | [*The Imitation Game* (2014)](https://en.wikipedia.org/wiki/The_Imitation_Game) | Feature Film | Alan Turing, Bletchley Park, and the conceptual roots of machine cognition |
+| **1950 (Foundations)** | [*Codebreaker* (2011)](https://en.wikipedia.org/wiki/Codebreaker_(film)) | Docudrama | Turing's post-war life, the 1950 Turing Test, and his enduring legacy |
+| **1966 (Golden Years)** | [*Plug & Pray* (2010)](https://en.wikipedia.org/wiki/Plug_%26_Pray) | Documentary | Joseph Weizenbaum on creating ELIZA and early AI ethics |
+| **1980s (Expert Systems)** | [*Computer Chess* (2013)](https://en.wikipedia.org/wiki/Computer_Chess_(film)) | Feature Film | The eccentric 1980s pioneer culture of mainframe chess algorithms |
+| **1997 (Preparation)** | [*Game Over: Kasparov and the Machine* (2003)](https://en.wikipedia.org/wiki/Game_Over:_Kasparov_and_the_Machine) | Documentary | The dramatic 1997 rematch between Garry Kasparov and IBM Deep Blue |
+| **2016 (Modern Era)** | [*AlphaGo* (2017)](https://en.wikipedia.org/wiki/AlphaGo_(film)) | Documentary | DeepMind's historic Go showdown in Seoul against Lee Sedol |
+| **2020 (Modern Era)** | [*The Thinking Game* (2024)](https://en.wikipedia.org/wiki/The_Thinking_Game) | Documentary | Demis Hassabis, Google DeepMind, and solving protein folding with AlphaFold |
+| **2021 (Modern Era)** | [*Coded Bias* (2020)](https://en.wikipedia.org/wiki/Coded_Bias) | Documentary | Joy Buolamwini, Timnit Gebru, and the ethical critique of large models |
+| **Modern Era (General)** | [*iHuman* (2019)](https://en.wikipedia.org/wiki/IHuman) | Documentary | Ilya Sutskever, Jürgen Schmidhuber, and the race toward artificial general intelligence |
 
 ---
 
