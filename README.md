@@ -2,11 +2,11 @@
 
 Visual, interactive timeline tracking the major milestones of Artificial Intelligence and Large Language Models from Alan Turing's foundational 1950 paper through 2026 frontier models, physical AI, and autonomous science.
 
-## 🚀 [View Live Timeline](https://sc137.github.io/timeline-ai-llm/)
+## [View Live Timeline](https://sc137.github.io/timeline-ai-llm/)
 
 ---
 
-## ✨ Features
+## Features
 
 - **37 Curated Milestones**: Chronological journey through six distinct eras (Foundations, Golden Years, Funding Shift, Expert Systems, Preparation, and Modern Era).
 - **Direct Primary Sources**: 20+ direct links to original landmark papers, announcements, and publications (Turing 1950, Backpropagation 1986, Attention Is All You Need 2017, GPT-4, DeepSeek-R1, and more).
@@ -15,7 +15,7 @@ Visual, interactive timeline tracking the major milestones of Artificial Intelli
 
 ---
 
-## 🎬 Recommended Viewing (Films & Documentaries)
+## Recommended Viewing (Films & Documentaries)
 
 Several major milestones and figures on this timeline have inspired acclaimed films and documentaries:
 
@@ -33,7 +33,7 @@ Several major milestones and figures on this timeline have inspired acclaimed fi
 
 ---
 
-## 📄 License & Attribution
+## License & Attribution
 
 Timeline created for educational purposes. Original research papers belong to their respective authors and academic publishers.
 
