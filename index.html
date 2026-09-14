@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Development Timeline (1950–Present)</title>
+    <title>AI Development Timeline (1950–2026)</title>
     <style>
         :root {
             /* Dark mode colors (default) */
@@ -16,6 +16,16 @@
             --card-bg: rgba(15, 23, 42, 0.98);
             --border-color: rgba(56, 189, 248, 0.2);
             --marker-border: #0f172a;
+            --year-color: #38bdf8;
+            --link-color: #38bdf8;
+            --focus-ring: #38bdf8;
+            --badge-bg: rgba(56, 189, 248, 0.1);
+            --badge-border: rgba(56, 189, 248, 0.35);
+            --badge-text: #38bdf8;
+            --badge-hover-bg: rgba(56, 189, 248, 0.22);
+            --badge-hover-border: #38bdf8;
+            --badge-hover-text: #f0f9ff;
+            --badge-shadow: rgba(56, 189, 248, 0.25);
         }
 
         [data-theme="light"] {
@@ -28,6 +38,16 @@
             --card-bg: rgba(255, 255, 255, 0.95);
             --border-color: rgba(2, 132, 199, 0.3);
             --marker-border: #ffffff;
+            --year-color: #0369a1;
+            --link-color: #0369a1;
+            --focus-ring: #0284c7;
+            --badge-bg: rgba(2, 132, 199, 0.08);
+            --badge-border: rgba(2, 132, 199, 0.4);
+            --badge-text: #0369a1;
+            --badge-hover-bg: rgba(2, 132, 199, 0.18);
+            --badge-hover-border: #0284c7;
+            --badge-hover-text: #082f49;
+            --badge-shadow: rgba(2, 132, 199, 0.2);
         }
 
         /* Detect system preference */
@@ -42,6 +62,16 @@
                 --card-bg: rgba(255, 255, 255, 0.95);
                 --border-color: rgba(2, 132, 199, 0.3);
                 --marker-border: #ffffff;
+                --year-color: #0369a1;
+                --link-color: #0369a1;
+                --focus-ring: #0284c7;
+                --badge-bg: rgba(2, 132, 199, 0.08);
+                --badge-border: rgba(2, 132, 199, 0.4);
+                --badge-text: #0369a1;
+                --badge-hover-bg: rgba(2, 132, 199, 0.18);
+                --badge-hover-border: #0284c7;
+                --badge-hover-text: #082f49;
+                --badge-shadow: rgba(2, 132, 199, 0.2);
             }
         }
 
@@ -61,13 +91,63 @@
             transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* Theme toggle button */
+        /* Screen reader only utility class (WCAG 1.3.1) */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Skip link for keyboard accessibility (WCAG 2.4.1) */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 20px;
+            background: #38bdf8;
+            color: #0f172a;
+            padding: 12px 20px;
+            font-weight: 700;
+            border-radius: 8px;
+            z-index: 2000;
+            text-decoration: none;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+            transition: top 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .skip-link:focus {
+            top: 20px;
+            outline: 3px solid #f1f5f9;
+            outline-offset: 3px;
+        }
+
+        [data-theme="light"] .skip-link {
+            background: #0284c7;
+            color: #ffffff;
+        }
+
+        [data-theme="light"] .skip-link:focus {
+            outline-color: #0f172a;
+        }
+
+        /* Accessible Focus Rings (WCAG 2.4.7) */
+        :focus-visible {
+            outline: 3px solid var(--focus-ring);
+            outline-offset: 3px;
+        }
+
+        /* Theme toggle button (WCAG 2.5.5 / 2.5.8 Minimum Target Size: 50x50px) */
         .theme-toggle {
             position: fixed;
             top: 20px;
             right: 20px;
             background: var(--card-bg);
-            border: 2px solid #38bdf8;
+            border: 2px solid var(--focus-ring);
             border-radius: 50%;
             width: 50px;
             height: 50px;
@@ -77,13 +157,13 @@
             cursor: pointer;
             font-size: 1.5rem;
             z-index: 1000;
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .theme-toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 16px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 6px 16px var(--badge-shadow);
         }
 
         .theme-toggle:active {
@@ -91,7 +171,7 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1040px;
             margin: 0 auto;
         }
 
@@ -132,82 +212,76 @@
             top: 0;
         }
 
-        /* Timeline events container */
-        .timeline-events {
+        /* Semantic Timeline Events List */
+        ol.timeline-events {
             position: relative;
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-        /* Paper link popup */
-        .paper-link {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-bottom: 10px;
-            background: var(--card-bg);
-            border: 2px solid #38bdf8;
-            border-radius: 8px;
-            padding: 12px 16px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .timeline-content {
-            position: relative;
-        }
-
-        /* Expanded hover area for easier access */
-        .timeline-content:hover .paper-link {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Keep popup visible when hovering over it */
-        .paper-link:hover {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .paper-link a {
-            color: #38bdf8;
-            text-decoration: none;
-            font-size: 0.9rem;
+        /* Paper link badge container & button */
+        .paper-badge-container {
+            margin-top: 14px;
             display: flex;
+        }
+
+        .timeline-event.left .paper-badge-container {
+            justify-content: flex-end;
+        }
+
+        .timeline-event.right .paper-badge-container {
+            justify-content: flex-start;
+        }
+
+        .paper-badge {
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            min-height: 42px;
+            padding: 8px 16px;
+            background: var(--badge-bg);
+            border: 1px solid var(--badge-border);
+            border-radius: 6px;
+            color: var(--badge-text);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1.3;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 100%;
+            word-break: break-word;
         }
 
-        .paper-link a:hover {
-            color: #0ea5e9;
-            text-decoration: underline;
+        .paper-badge:hover {
+            background: var(--badge-hover-bg);
+            border-color: var(--badge-hover-border);
+            color: var(--badge-hover-text);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px var(--badge-shadow);
         }
 
-        .paper-link::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 8px solid transparent;
-            border-top-color: #38bdf8;
+        .paper-badge .paper-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
         }
 
-        /* Visual indicator icon for items with papers */
-        .has-paper-indicator {
-            display: inline-block;
-            margin-left: 8px;
-            color: #38bdf8;
+        .paper-badge .paper-title {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 340px;
+        }
+
+        .paper-badge .paper-arrow {
             font-size: 0.85rem;
-            vertical-align: middle;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
+            opacity: 0.8;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            flex-shrink: 0;
         }
 
-        .timeline-content:hover .has-paper-indicator {
+        .paper-badge:hover .paper-arrow {
+            transform: translate(2px, -2px);
             opacity: 1;
         }
 
@@ -216,13 +290,13 @@
             margin-bottom: 50px;
             display: flex;
             opacity: 0;
-            animation: fadeInUp 0.6s ease-out forwards;
+            animation: fadeInUp 0.5s ease-out forwards;
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(25px);
             }
             to {
                 opacity: 1;
@@ -230,30 +304,17 @@
             }
         }
 
-        /* Stagger animation */
-        .timeline-event:nth-child(1) { animation-delay: 0.1s; }
-        .timeline-event:nth-child(2) { animation-delay: 0.2s; }
-        .timeline-event:nth-child(3) { animation-delay: 0.3s; }
-        .timeline-event:nth-child(4) { animation-delay: 0.4s; }
-        .timeline-event:nth-child(5) { animation-delay: 0.5s; }
-        .timeline-event:nth-child(6) { animation-delay: 0.6s; }
-        .timeline-event:nth-child(7) { animation-delay: 0.7s; }
-        .timeline-event:nth-child(8) { animation-delay: 0.8s; }
-        .timeline-event:nth-child(9) { animation-delay: 0.9s; }
-        .timeline-event:nth-child(10) { animation-delay: 1s; }
-        .timeline-event:nth-child(11) { animation-delay: 1.1s; }
-        .timeline-event:nth-child(12) { animation-delay: 1.2s; }
-        .timeline-event:nth-child(13) { animation-delay: 1.3s; }
-        .timeline-event:nth-child(14) { animation-delay: 1.4s; }
-        .timeline-event:nth-child(15) { animation-delay: 1.5s; }
-        .timeline-event:nth-child(16) { animation-delay: 1.6s; }
-        .timeline-event:nth-child(17) { animation-delay: 1.7s; }
-        .timeline-event:nth-child(18) { animation-delay: 1.8s; }
-        .timeline-event:nth-child(19) { animation-delay: 1.9s; }
-        .timeline-event:nth-child(20) { animation-delay: 2s; }
-        .timeline-event:nth-child(21) { animation-delay: 2.1s; }
-        .timeline-event:nth-child(22) { animation-delay: 2.2s; }
-        .timeline-event:nth-child(23) { animation-delay: 2.3s; }
+        /* Subtle staggered delays for initial viewport */
+        .timeline-event:nth-child(1) { animation-delay: 0.05s; }
+        .timeline-event:nth-child(2) { animation-delay: 0.10s; }
+        .timeline-event:nth-child(3) { animation-delay: 0.15s; }
+        .timeline-event:nth-child(4) { animation-delay: 0.20s; }
+        .timeline-event:nth-child(5) { animation-delay: 0.25s; }
+        .timeline-event:nth-child(6) { animation-delay: 0.30s; }
+        .timeline-event:nth-child(7) { animation-delay: 0.35s; }
+        .timeline-event:nth-child(8) { animation-delay: 0.40s; }
+        .timeline-event:nth-child(9) { animation-delay: 0.45s; }
+        .timeline-event:nth-child(10) { animation-delay: 0.50s; }
 
         /* Left events */
         .timeline-event.left {
@@ -264,6 +325,7 @@
         .timeline-content {
             width: 48%;
             padding: 0 30px;
+            position: relative;
         }
 
         /* Left content */
@@ -303,11 +365,11 @@
         .timeline-event.era-preparation .timeline-marker { background: #f97316; border-color: var(--marker-border); }
         .timeline-event.era-modern .timeline-marker { background: #38bdf8; border-color: var(--marker-border); }
 
-        /* Year label */
+        /* Year label - high contrast WCAG compliant */
         .timeline-year {
             font-size: 2rem;
             font-weight: 700;
-            color: #38bdf8;
+            color: var(--year-color);
             margin-bottom: 5px;
             display: block;
         }
@@ -331,7 +393,7 @@
         .timeline-event.era-preparation .timeline-era { background: rgba(249, 115, 22, 0.2); color: #fdba74; }
         .timeline-event.era-modern .timeline-era { background: rgba(56, 189, 248, 0.2); color: #7dd3fc; }
 
-        /* Light mode era badge colors - higher contrast */
+        /* Light mode era badge colors - >= 6.7:1 contrast ratio */
         [data-theme="light"] .timeline-event.era-foundations .timeline-era { background: rgba(245, 158, 11, 0.15); color: #92400e; }
         [data-theme="light"] .timeline-event.era-golden-years .timeline-era { background: rgba(236, 72, 153, 0.15); color: #9f1239; }
         [data-theme="light"] .timeline-event.era-funding-shift .timeline-era { background: rgba(99, 102, 241, 0.15); color: #3730a3; }
@@ -339,7 +401,7 @@
         [data-theme="light"] .timeline-event.era-preparation .timeline-era { background: rgba(249, 115, 22, 0.15); color: #9a3412; }
         [data-theme="light"] .timeline-event.era-modern .timeline-era { background: rgba(56, 189, 248, 0.15); color: #075985; }
 
-        /* Title */
+        /* Title (h2 for valid heading hierarchy: h1 -> h2) */
         .timeline-title {
             font-size: 1.5rem;
             font-weight: 600;
@@ -352,11 +414,6 @@
             font-size: 0.95rem;
             color: var(--text-secondary);
             line-height: 1.7;
-        }
-
-        /* Card styling */
-        .timeline-event:hover .timeline-content {
-            transform: translateX(0);
         }
 
         /* Responsive design */
@@ -380,8 +437,17 @@
 
             .timeline-content {
                 width: 100%;
-                padding: 0 0 0 80px !important;
+                padding: 0 0 0 70px !important;
                 text-align: left !important;
+            }
+
+            .timeline-event.left .paper-badge-container,
+            .timeline-event.right .paper-badge-container {
+                justify-content: flex-start !important;
+            }
+
+            .paper-badge .paper-title {
+                max-width: 240px;
             }
 
             .timeline-marker {
@@ -398,13 +464,16 @@
         }
 
         /* Legend */
-        .legend {
+        ul.legend {
+            list-style: none;
+            padding: 0;
+            margin: 0;
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             margin-top: 60px;
             padding-top: 40px;
-            border-top: 1px solid rgba(56, 189, 248, 0.2);
+            border-top: 1px solid var(--border-color);
             justify-content: center;
         }
 
@@ -437,317 +506,697 @@
             color: var(--text-muted);
             font-size: 0.9rem;
         }
+
+        .footer-link {
+            color: var(--link-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Vestibular & Motion Accessibility (WCAG 2.2.2 & 2.3.3) */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .timeline-event {
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important;
+            }
+            .theme-toggle, .paper-badge, .timeline-marker {
+                transition: none !important;
+            }
+        }
     </style>
 </head>
 <body>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <span id="themeIcon">🌙</span>
+    <a href="#main-content" class="skip-link">Skip to timeline content</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Switch to light theme" aria-live="polite">
+        <span id="themeIcon" aria-hidden="true">☀️</span>
     </button>
     
     <div class="container">
         <header>
-            <h1>AI Development Timeline</h1>
-            <p class="subtitle">1950–Present | Major Milestones in Artificial Intelligence</p>
+            <h1 id="timeline-heading">AI Development Timeline</h1>
+            <p class="subtitle">1950–2026 | Major Milestones in Artificial Intelligence</p>
         </header>
 
+        <main id="main-content" tabindex="-1">
+        <section aria-labelledby="timeline-heading">
         <div class="timeline">
-            <div class="timeline-events">
-                <!-- 1950 -->
-                <div class="timeline-event left era-foundations">
+            <ol class="timeline-events" role="list">
+                <!-- 1. 1950 (left) -->
+                <li class="timeline-event left era-foundations">
                     <div class="timeline-content">
                         <span class="timeline-year">1950</span>
-                        <span class="timeline-era">Foundations<span class="has-paper-indicator">📄</span></span>
-                        <h3 class="timeline-title">Turing's Foundational Question</h3>
-                        <p class="timeline-description">Alan Turing publishes "Computing Machinery and Intelligence," introducing the Turing Test as a measure of machine intelligence and establishing theoretical framework for AI research.</p>
-                        <div class="paper-link">
-                            <a href="https://academic.oup.com/mind/article/LIX/236/433/986238" target="_blank">📄 Read: Computing Machinery and Intelligence</a>
+                        <span class="timeline-era">Foundations</span>
+                        <h2 class="timeline-title">Turing's Foundational Question</h2>
+                        <p class="timeline-description">Alan Turing publishes "Computing Machinery and Intelligence," proposing the imitation game (Turing Test) as a criterion for machine cognition and shaping early theoretical AI.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://academic.oup.com/mind/article/LIX/236/433/986238" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Computing Machinery and Intelligence (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Computing Machinery and Intelligence</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
                         </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 1956 -->
-                <div class="timeline-event right era-foundations">
+                <!-- 2. 1956 (right) -->
+                <li class="timeline-event right era-foundations">
                     <div class="timeline-content">
                         <span class="timeline-year">1956</span>
                         <span class="timeline-era">Foundations</span>
-                        <h3 class="timeline-title">Dartmouth Workshop — Birth of AI</h3>
-                        <p class="timeline-description">McCarthy, Minsky, Rochester, and Shannon organize landmark workshop. The term "Artificial Intelligence" is officially coined, bringing researchers together under a unified banner.</p>
+                        <h2 class="timeline-title">Dartmouth Workshop — Birth of AI</h2>
+                        <p class="timeline-description">John McCarthy, Marvin Minsky, Nathaniel Rochester, and Claude Shannon organize the landmark summer workshop at Dartmouth College, officially coining the term "Artificial Intelligence" and establishing AI as an academic discipline.</p>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 1963 -->
-                <div class="timeline-event left era-golden-years">
+                <!-- 3. 1958 (left) -->
+                <li class="timeline-event left era-foundations">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1958</span>
+                        <span class="timeline-era">Foundations</span>
+                        <h2 class="timeline-title">The Perceptron</h2>
+                        <p class="timeline-description">Frank Rosenblatt invents the Perceptron at the Cornell Aeronautical Laboratory, implementing the first algorithmic model of an artificial neural network capable of learning from visual inputs.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://psycnet.apa.org/record/1959-09865-001" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: The Perceptron: A Probabilistic Model for Information Storage (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">The Perceptron: A Probabilistic Model for Information Storage</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 4. 1963 (right) -->
+                <li class="timeline-event right era-golden-years">
                     <div class="timeline-content">
                         <span class="timeline-year">1963</span>
                         <span class="timeline-era">Golden Years</span>
-                        <h3 class="timeline-title">SAIL Founded</h3>
+                        <h2 class="timeline-title">SAIL Founded</h2>
                         <p class="timeline-description">Stanford Artificial Intelligence Laboratory established by John McCarthy and Les Earnest. Becomes a major research hub for robotics, computer vision, and knowledge representation.</p>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 1966 -->
-                <div class="timeline-event right era-golden-years">
+                <!-- 5. 1966 (left) -->
+                <li class="timeline-event left era-golden-years">
                     <div class="timeline-content">
                         <span class="timeline-year">1966</span>
                         <span class="timeline-era">Golden Years</span>
-                        <h3 class="timeline-title">Robotic Innovations at SAIL</h3>
-                        <p class="timeline-description">Development of the Stanford Arm, a robotic arm precursor to industrial robots. Advances in image processing and computer vision work at SAIL.</p>
+                        <h2 class="timeline-title">ELIZA Chatbot</h2>
+                        <p class="timeline-description">Joseph Weizenbaum at MIT publishes ELIZA, the first natural language processing chatbot. Using script-based pattern matching to simulate a Rogerian psychotherapist, it famously reveals human tendencies to project empathy onto machines.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://doi.org/10.1145/365153.365168" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: ELIZA: A Computer Program for Natural Language Communication (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">ELIZA: A Computer Program for Natural Language</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 1967 -->
-                <div class="timeline-event left era-golden-years">
+                <!-- 6. 1969 (right) -->
+                <li class="timeline-event right era-golden-years">
                     <div class="timeline-content">
-                        <span class="timeline-year">1967</span>
+                        <span class="timeline-year">1969</span>
                         <span class="timeline-era">Golden Years</span>
-                        <h3 class="timeline-title">ELIZA Chatbot</h3>
-                        <p class="timeline-description">Joseph Weizenbaum at MIT creates ELIZA, the first natural language processing chatbot. Simulates a Rogerian psychotherapist using pattern matching. Users become emotionally attached despite its simplicity.</p>
+                        <h2 class="timeline-title">Robotic Breakthroughs: Stanford Arm & Shakey</h2>
+                        <p class="timeline-description">Victor Scheinman invents the Stanford Arm at SAIL—the first all-electric, 6-degree-of-freedom robotic manipulator designed for computer control. Simultaneously at SRI, Shakey the Robot pioneers autonomous reasoning and path planning (A*).</p>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 1974 -->
-                <div class="timeline-event right era-funding-shift">
+                <!-- 7. 1974 (left) -->
+                <li class="timeline-event left era-funding-shift">
                     <div class="timeline-content">
                         <span class="timeline-year">1974</span>
                         <span class="timeline-era">Funding Shift</span>
-                        <h3 class="timeline-title">AI Funding Reduction</h3>
-                        <p class="timeline-description">High expectations from the 1960s go unmet due to computational limitations. Symbolic AI approaches hit fundamental barriers. DARPA reduces funding for general AI research, shifting focus to more targeted applications.</p>
+                        <h2 class="timeline-title">AI Funding Reduction (First AI Winter)</h2>
+                        <p class="timeline-description">Early optimism collides with hardware limits and combinatorial explosions in symbolic reasoning. The Lighthill report in the UK and DARPA budget realignments inaugurate the first "AI Winter."</p>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 1980 -->
-                <div class="timeline-event left era-expert-systems">
+                <!-- 8. 1980 (right) -->
+                <li class="timeline-event right era-expert-systems">
                     <div class="timeline-content">
                         <span class="timeline-year">1980</span>
                         <span class="timeline-era">Expert Systems</span>
-                        <h3 class="timeline-title">Expert Systems Boom</h3>
-                        <p class="timeline-description">Renewed government funding from DARPA. Focus shifts to rule-based expert systems for domain-specific applications. Industry begins investing in specialized AI hardware.</p>
+                        <h2 class="timeline-title">Expert Systems Boom</h2>
+                        <p class="timeline-description">Renewed commercial and government interest centers on domain-specific rule engines (such as XCON and MYCIN). Commercial Lisp machines and enterprise knowledge bases fuel massive industry investments.</p>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 1986 -->
-                <div class="timeline-event right era-expert-systems">
+                <!-- 9. 1986 (left) -->
+                <li class="timeline-event left era-expert-systems">
                     <div class="timeline-content">
                         <span class="timeline-year">1986</span>
-                        <span class="timeline-era">Expert Systems<span class="has-paper-indicator">📄</span></span>
-                        <h3 class="timeline-title">Backpropagation Revolution</h3>
-                        <p class="timeline-description">Hinton, Rumelhart, and Williams publish "Learning Representations by Back-Propagating Errors" in Nature. Enables efficient training of multi-layer neural networks—foundation for modern deep learning.</p>
-                        <div class="paper-link">
-                            <a href="https://www.nature.com/articles/323533a0" target="_blank">📄 Read: Learning Representations by Back-Propagating Errors</a>
+                        <span class="timeline-era">Expert Systems</span>
+                        <h2 class="timeline-title">Backpropagation Revolution</h2>
+                        <p class="timeline-description">David Rumelhart, Geoffrey Hinton, and Ronald Williams publish their seminal Nature paper popularizing backpropagation for multi-layer neural networks, solving credit assignment for hidden representations.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://www.nature.com/articles/323533a0" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Learning Representations by Back-Propagating Errors (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Learning Representations by Back-Propagating Errors</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
                         </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 1997 -->
-                <div class="timeline-event left era-preparation">
+                <!-- 10. 1989 (right) -->
+                <li class="timeline-event right era-expert-systems">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1989</span>
+                        <span class="timeline-era">Expert Systems</span>
+                        <h2 class="timeline-title">LeNet & Convolutional Neural Networks</h2>
+                        <p class="timeline-description">Yann LeCun and colleagues at AT&T Bell Labs apply backpropagation to train convolutional neural networks (CNNs) for recognizing handwritten ZIP codes, establishing the foundation for modern computer vision.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://ieeexplore.ieee.org/document/726791" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Backpropagation Applied to Handwritten Zip Code Recognition (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Backpropagation Applied to Handwritten Zip Code Recognition</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 11. 1997 (left) -->
+                <li class="timeline-event left era-preparation">
                     <div class="timeline-content">
                         <span class="timeline-year">1997</span>
                         <span class="timeline-era">Preparation</span>
-                        <h3 class="timeline-title">Deep Blue vs. Kasparov</h3>
-                        <p class="timeline-description">IBM's Deep Blue defeats world chess champion Garry Kasparov. First computer to beat a reigning world champion under standard tournament conditions. Proves machines can excel at complex strategic tasks.</p>
+                        <h2 class="timeline-title">Deep Blue vs. Kasparov</h2>
+                        <p class="timeline-description">IBM's Deep Blue defeats world chess champion Garry Kasparov in a six-game match under standard tournament time controls, demonstrating the immense power of heuristic search, evaluation functions, and custom silicon.</p>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 2009 -->
-                <div class="timeline-event right era-preparation">
+                <!-- 12. 1997 (right) -->
+                <li class="timeline-event right era-preparation">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1997</span>
+                        <span class="timeline-era">Preparation</span>
+                        <h2 class="timeline-title">Long Short-Term Memory (LSTM)</h2>
+                        <p class="timeline-description">Sepp Hochreiter and Jürgen Schmidhuber introduce LSTM recurrent neural networks. By introducing constant error carousels and gating mechanisms, LSTMs resolve the vanishing gradient problem, dominating sequence modeling for over twenty years.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://www.mitpressjournals.org/doi/10.1162/neco.1997.9.8.1735" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Long Short-Term Memory (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Long Short-Term Memory</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 13. 2009 (left) -->
+                <li class="timeline-event left era-preparation">
                     <div class="timeline-content">
                         <span class="timeline-year">2009</span>
                         <span class="timeline-era">Preparation</span>
-                        <h3 class="timeline-title">ImageNet Dataset Released</h3>
-                        <p class="timeline-description">Fei-Fei Li and team release ImageNet, a large-scale visual database with 14+ million labeled images. ImageNet Large Scale Visual Recognition Challenge (ILSVRC) becomes the benchmark driving computer vision advances.</p>
+                        <h2 class="timeline-title">ImageNet Dataset Released</h2>
+                        <p class="timeline-description">Fei-Fei Li and team release ImageNet, containing over 14 million hand-annotated images. Its annual competition (ILSVRC) sets the gold standard for visual benchmarking and provides the fuel that ignites modern deep learning.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://ieeexplore.ieee.org/document/5206848" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: ImageNet: A Large-Scale Hierarchical Image Database (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">ImageNet: A Large-Scale Hierarchical Image Database</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 2010 -->
-                <div class="timeline-event left era-modern">
+                <!-- 14. 2010 (right) -->
+                <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2010</span>
                         <span class="timeline-era">Modern Era</span>
-                        <h3 class="timeline-title">DeepMind Founded</h3>
-                        <p class="timeline-description">Demis Hassabis and team establish DeepMind in London. Mission: "Solve intelligence." Combines deep learning with reinforcement learning to create AI capable of learning from raw experience.</p>
+                        <h2 class="timeline-title">DeepMind Founded</h2>
+                        <p class="timeline-description">Demis Hassabis, Shane Legg, and Mustafa Suleyman establish DeepMind in London with the mission to "solve intelligence" by fusing deep neural networks with reinforcement learning.</p>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 2012 -->
-                <div class="timeline-event right era-modern">
+                <!-- 15. 2012 (left) -->
+                <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2012</span>
-                        <span class="timeline-era">Modern Era<span class="has-paper-indicator">📄</span></span>
-                        <h3 class="timeline-title">AlexNet Wins ImageNet</h3>
-                        <p class="timeline-description">Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton's deep convolutional neural network wins ILSVRC by a massive margin. Reduces error rate from 26% to 15%. Watershed moment launching the deep learning revolution.</p>
-                        <div class="paper-link">
-                            <a href="https://proceedings.neurips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html" target="_blank">📄 Read: ImageNet Classification with Deep Convolutional Neural Networks</a>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">AlexNet Wins ImageNet</h2>
+                        <p class="timeline-description">Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton shatter records in the ImageNet challenge using GPU-accelerated deep CNNs, slashing error rates from 26% to 15% and launching the modern deep learning era.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://proceedings.neurips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: ImageNet Classification with Deep Convolutional Neural Networks (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">ImageNet Classification with Deep Convolutional Neural Networks</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
                         </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 2014 -->
-                <div class="timeline-event left era-modern">
+                <!-- 16. 2014 (right) -->
+                <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2014</span>
                         <span class="timeline-era">Modern Era</span>
-                        <h3 class="timeline-title">Google Acquires DeepMind</h3>
-                        <p class="timeline-description">Google acquires DeepMind for $400–650 million. DeepMind gains access to massive computational resources and integrates with Google infrastructure, accelerating research capabilities.</p>
+                        <h2 class="timeline-title">Google Acquires DeepMind</h2>
+                        <p class="timeline-description">Google acquires DeepMind for over $500 million, pairing world-class artificial intelligence researchers with hyperscale compute infrastructure to pursue artificial general intelligence.</p>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 2016 -->
-                <div class="timeline-event right era-modern">
+                <!-- 17. 2014 (left) -->
+                <li class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2014</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">Generative Adversarial Networks (GANs)</h2>
+                        <p class="timeline-description">Ian Goodfellow and co-authors introduce GANs, framing generation as a minimax game between a generator and discriminator. This framework initiates a revolution in hyper-realistic image synthesis and creative AI.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://arxiv.org/abs/1406.2661" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Generative Adversarial Nets (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Generative Adversarial Nets</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 18. 2015 (right) -->
+                <li class="timeline-event right era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2015</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">ResNet (Deep Residual Learning)</h2>
+                        <p class="timeline-description">Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun invent Residual Networks (ResNet). Skip connections make training 100+ layer architectures viable, winning ImageNet and surpassing human classification accuracy.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://arxiv.org/abs/1512.03385" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Deep Residual Learning for Image Recognition (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Deep Residual Learning for Image Recognition</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 19. 2016 (left) -->
+                <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2016</span>
                         <span class="timeline-era">Modern Era</span>
-                        <h3 class="timeline-title">AlphaGo Defeats Lee Sedol</h3>
-                        <p class="timeline-description">DeepMind's AlphaGo defeats world Go champion Lee Sedol. Historic breakthrough: AI masters ancient game of Go (10^170 positions). Marks beginning of modern AI boom and mainstream enthusiasm.</p>
+                        <h2 class="timeline-title">AlphaGo Defeats Lee Sedol</h2>
+                        <p class="timeline-description">DeepMind's AlphaGo defeats 18-time world champion Lee Sedol 4-1 in Seoul. Combining Monte Carlo tree search with deep value and policy networks, AlphaGo masters a game previously considered decades away from algorithmic mastery.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://www.nature.com/articles/nature16961" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Mastering the Game of Go with Deep Neural Networks (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Mastering the Game of Go with Deep Neural Networks</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 2017 -->
-                <div class="timeline-event left era-modern">
+                <!-- 20. 2017 (right) -->
+                <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2017</span>
-                        <span class="timeline-era">Modern Era<span class="has-paper-indicator">📄</span></span>
-                        <h3 class="timeline-title">Transformer Architecture Introduced</h3>
-                        <p class="timeline-description">Google researchers publish "Attention Is All You Need," introducing the transformer architecture. Self-attention mechanism revolutionizes sequence modeling. Becomes the foundation for GPT, BERT, and all modern large language models.</p>
-                        <div class="paper-link">
-                            <a href="https://arxiv.org/abs/1706.03762" target="_blank">📄 Read: Attention Is All You Need</a>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">Transformer Architecture Introduced</h2>
+                        <p class="timeline-description">Google researchers publish "Attention Is All You Need," introducing the Transformer. By dispensing with recurrence in favor of multi-head self-attention, it creates the ubiquitous architectural foundation for modern foundation models.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://arxiv.org/abs/1706.03762" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Attention Is All You Need (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Attention Is All You Need</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
                         </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 2018 -->
-                <div class="timeline-event right era-modern">
+                <!-- 21. 2018 (left) -->
+                <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2018</span>
-                        <span class="timeline-era">Modern Era<span class="has-paper-indicator">📄</span></span>
-                        <h3 class="timeline-title">BERT Released</h3>
-                        <p class="timeline-description">Google releases BERT (Bidirectional Encoder Representations from Transformers). Pre-training on massive text enables state-of-the-art performance across 11 NLP tasks. Demonstrates the power of transfer learning in language understanding.</p>
-                        <div class="paper-link">
-                            <a href="https://arxiv.org/abs/1810.04805" target="_blank">📄 Read: BERT: Pre-training of Deep Bidirectional Transformers</a>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">BERT Released</h2>
+                        <p class="timeline-description">Google releases BERT (Bidirectional Encoder Representations from Transformers). Pre-training on massive unannotated corpora followed by light fine-tuning sets state-of-the-art results across 11 major NLP benchmarks.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://arxiv.org/abs/1810.04805" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: BERT: Pre-training of Deep Bidirectional Transformers (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">BERT: Pre-training of Deep Bidirectional Transformers</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
                         </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 2020 -->
-                <div class="timeline-event left era-modern">
+                <!-- 22. 2019 (right) -->
+                <li class="timeline-event right era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2019</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">GPT-2 & Emergent Scaling</h2>
+                        <p class="timeline-description">OpenAI unveils GPT-2 (1.5B parameters), proving that autoregressive language models trained on massive internet data display zero-shot task transfer without task-specific supervision, initiating the LLM scaling hypothesis.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Language Models are Unsupervised Multitask Learners (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Language Models are Unsupervised Multitask Learners</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 23. 2020 (left) -->
+                <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2020</span>
-                        <span class="timeline-era">Modern Era<span class="has-paper-indicator">📄</span></span>
-                        <h3 class="timeline-title">GPT-3 and AlphaFold</h3>
-                        <p class="timeline-description">OpenAI releases GPT-3 with 175 billion parameters, demonstrating remarkable few-shot learning abilities. DeepMind's AlphaFold wins CASP14, solving the 50-year protein folding problem with near-experimental accuracy (0.96 Å).</p>
-                        <div class="paper-link">
-                            <a href="https://arxiv.org/abs/2005.14165" target="_blank">📄 Read: Language Models are Few-Shot Learners (GPT-3)</a>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">GPT-3 and AlphaFold 2</h2>
+                        <p class="timeline-description">OpenAI scales parameters to 175B with GPT-3, exhibiting in-context few-shot learning. Simultaneously, DeepMind's AlphaFold 2 solves the 50-year grand challenge of protein structure prediction with atomic accuracy in CASP14.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://arxiv.org/abs/2005.14165" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Language Models are Few-Shot Learners (GPT-3) (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Language Models are Few-Shot Learners (GPT-3)</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
                         </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 2021 Stochastic Parrots -->
-                <div class="timeline-event right era-modern">
-                    <div class="timeline-content">
-                        <span class="timeline-year">2021</span>
-                        <span class="timeline-era">Modern Era<span class="has-paper-indicator">📄</span></span>
-                        <h3 class="timeline-title">"Stochastic Parrots" Paper</h3>
-                        <p class="timeline-description">Bender, Gebru, McMillan-Major, and Mitchell publish landmark paper questioning environmental costs, bias amplification, and limitations of large language models. Catalyzes critical discourse on AI ethics and responsible development.</p>
-                        <div class="paper-link">
-                            <a href="https://dl.acm.org/doi/10.1145/3442188.3445922" target="_blank">📄 Read: On the Dangers of Stochastic Parrots</a>
-                        </div>
-                    </div>
-                    <div class="timeline-marker"></div>
-                </div>
-
-                <!-- 2021 -->
-                <div class="timeline-event left era-modern">
+                <!-- 24. 2021 (right) -->
+                <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2021</span>
                         <span class="timeline-era">Modern Era</span>
-                        <h3 class="timeline-title">Anthropic Founded</h3>
-                        <p class="timeline-description">Former OpenAI researchers Dario Amodei and Daniela Amodei establish Anthropic. Company focuses on AI safety research and developing reliable, interpretable, and steerable AI systems.</p>
+                        <h2 class="timeline-title">"Stochastic Parrots" Paper</h2>
+                        <p class="timeline-description">Emily Bender, Timnit Gebru, Angelina McMillan-Major, and Margaret Mitchell publish their influential critique analyzing environmental footprints, bias amplification, and lack of semantic grounding in massive LLMs.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://dl.acm.org/doi/10.1145/3442188.3445922" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: On the Dangers of Stochastic Parrots (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">On the Dangers of Stochastic Parrots</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 2022 -->
-                <div class="timeline-event right era-modern">
+                <!-- 25. 2021 (left) -->
+                <li class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2021</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">Anthropic Founded</h2>
+                        <p class="timeline-description">Former OpenAI research leaders Dario Amodei and Daniela Amodei launch Anthropic, establishing a safety-first AI research lab focused on Constitutional AI, steerability, and mechanistic interpretability.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 26. 2022 (right) -->
+                <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2022</span>
                         <span class="timeline-era">Modern Era</span>
-                        <h3 class="timeline-title">ChatGPT Goes Public</h3>
-                        <p class="timeline-description">OpenAI releases ChatGPT publicly on November 30, 2022. Reaches 1 million users in 5 days. Free and accessible interface brings conversational AI to billions of people worldwide.</p>
+                        <h2 class="timeline-title">ChatGPT Goes Public</h2>
+                        <p class="timeline-description">OpenAI launches ChatGPT using RLHF (Reinforcement Learning from Human Feedback). It reaches 100 million monthly active users in two months, becoming the fastest-growing consumer app in history and igniting a global AI boom.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://openai.com/index/chatgpt/" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read announcement: Introducing ChatGPT (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Introducing ChatGPT: Optimizing Language Models</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 2023 -->
-                <div class="timeline-event left era-modern">
+                <!-- 27. 2023 (left) -->
+                <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2023</span>
                         <span class="timeline-era">Modern Era</span>
-                        <h3 class="timeline-title">Generative AI Explosion</h3>
-                        <p class="timeline-description">Microsoft-OpenAI partnership announced. GitHub releases Copilot with GPT-4. Anthropic releases Claude. Multiple companies race to integrate LLMs into products. Academic and commercial sectors accelerate AI adoption.</p>
+                        <h2 class="timeline-title">GPT-4 Frontier Multimodality</h2>
+                        <p class="timeline-description">OpenAI releases GPT-4, demonstrating human-level competence on professional exams (90th percentile on the Uniform Bar Exam) and introducing multimodal vision-text reasoning at unprecedented fidelity.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://arxiv.org/abs/2303.08774" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: GPT-4 Technical Report (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">GPT-4 Technical Report</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
+                </li>
 
-                <!-- 2023 Google DeepMind -->
-                <div class="timeline-event right era-modern">
+                <!-- 28. 2023 (right) -->
+                <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2023</span>
                         <span class="timeline-era">Modern Era</span>
-                        <h3 class="timeline-title">Google DeepMind Formation</h3>
-                        <p class="timeline-description">DeepMind merges with Google Brain to form Google DeepMind. Consolidates Google's AI efforts under unified leadership in response to competitive pressure from OpenAI.</p>
+                        <h2 class="timeline-title">LLaMA & Open-Source LLM Surge</h2>
+                        <p class="timeline-description">Meta releases LLaMA and Llama 2 under open licenses. Open weights trigger a massive wave of open-source innovation, local inference tooling (llama.cpp, Ollama), parameter-efficient fine-tuning (LoRA/QLoRA), and decentralized AI development.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://arxiv.org/abs/2302.13971" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: LLaMA: Open Foundation Language Models (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">LLaMA: Open Foundation Language Models</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="timeline-marker"></div>
-                </div>
-            </div>
+                </li>
+
+                <!-- 29. 2023 (left) -->
+                <li class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2023</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">Google DeepMind & Gemini 1.0</h2>
+                        <p class="timeline-description">DeepMind merges with Google Brain to establish Google DeepMind, subsequently debuting Gemini 1.0—a frontier model engineered from inception to natively understand, operate on, and combine text, code, audio, image, and video.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://arxiv.org/abs/2312.11805" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Gemini: A Family of Capable Multimodal Models (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Gemini: A Family of Capable Multimodal Models</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 30. 2024 (right) -->
+                <li class="timeline-event right era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2024</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">Sora & Diffusion Transformers (DiT)</h2>
+                        <p class="timeline-description">OpenAI reveals Sora, synthesizing minute-long high-definition videos with 3D consistency and temporal coherence. Accelerates the adoption of Diffusion Transformers (DiT) as generative world simulators that model geometry and physics.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://arxiv.org/abs/2212.09748" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Scalable Diffusion Models with Transformers (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Scalable Diffusion Models with Transformers</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 31. 2024 (left) -->
+                <li class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2024</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">Test-Time Compute & OpenAI o1</h2>
+                        <p class="timeline-description">OpenAI unveils o1 ("Strawberry"), implementing large-scale reinforcement learning for chain-of-thought reasoning. Establishes inference-time compute scaling as a major complementary frontier to pre-training scaling laws for mathematics and scientific logic.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://openai.com/index/learning-to-reason-with-llms/" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: Learning to Reason with LLMs (OpenAI o1) (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Learning to Reason with LLMs (OpenAI o1)</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 32. 2024 (right) -->
+                <li class="timeline-event right era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2024</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">Nobel Prizes Awarded for AI</h2>
+                        <p class="timeline-description">The Nobel Prize in Physics is awarded to John Hopfield and Geoffrey Hinton for founding discoveries in artificial neural networks. The Nobel Prize in Chemistry is awarded to Demis Hassabis and John Jumper for AlphaFold protein structure prediction. Marks historic scientific validation of machine learning.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://www.nobelprize.org/prizes/physics/2024/press-release/" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read Nobel Prize press release (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">The Nobel Prize in Physics & Chemistry 2024</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 33. 2024 (left) -->
+                <li class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2024</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">Agentic Computer Use & Claude 3.5 Sonnet</h2>
+                        <p class="timeline-description">Anthropic launches upgraded Claude 3.5 Sonnet alongside groundbreaking "Computer Use" APIs, enabling foundation models to observe screen pixels, move mouse pointers, type commands, and automate desktop interfaces.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://www.anthropic.com/news/3-5-models-and-computer-use" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read Anthropic announcement: Developing Computer Use (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">Anthropic: Developing Computer Use & Claude 3.5</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 34. 2025 (right) -->
+                <li class="timeline-event right era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2025</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">DeepSeek-R1 & Open Reasoning</h2>
+                        <p class="timeline-description">DeepSeek releases R1, demonstrating that pure reinforcement learning (GRPO) can incentivize advanced reasoning without massive supervised fine-tuning. Distilled open weights reshape global AI economics and democratize frontier reasoning.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://arxiv.org/abs/2501.12948" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: DeepSeek-R1: Incentivizing Reasoning via RL (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">DeepSeek-R1: Incentivizing Reasoning via RL</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 35. 2025 (left) -->
+                <li class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2025</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">Hybrid Reasoning & Autonomous Agent Ecosystems</h2>
+                        <p class="timeline-description">Frontier models integrate hybrid thinking mechanisms (instantaneous low-latency generation paired with dynamic extended reasoning), powering autonomous coding agents that plan, execute, debug, and verify full-stack codebases independently.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 36. 2026 (right) -->
+                <li class="timeline-event right era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2026</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">Physical AI & Humanoid Robotics</h2>
+                        <p class="timeline-description">Vision-Language-Action (VLA) models bridge foundational neural representations with embodied physical hardware. Humanoid robots (Figure, Tesla Optimus, Boston Dynamics) transition to commercial deployment for dexterous, real-world tasks.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 37. 2026 (left) -->
+                <li class="timeline-event left era-modern">
+                    <div class="timeline-content">
+                        <span class="timeline-year">2026</span>
+                        <span class="timeline-era">Modern Era</span>
+                        <h2 class="timeline-title">Closed-Loop Autonomous Science</h2>
+                        <p class="timeline-description">Multi-agent AI swarms achieve autonomous, closed-loop scientific research—hypothesizing theories, writing verification proofs, orchestrating automated robotic wet labs, and accelerating materials synthesis and therapeutics discovery.</p>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+            </ol>
         </div>
+        </section>
 
         <!-- Legend -->
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-dot foundations"></div>
-                <span>Foundations (1950s)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-dot golden-years"></div>
-                <span>Golden Years (1960s–1970s)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-dot funding-shift"></div>
-                <span>Funding Shift (1974–1980)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-dot expert-systems"></div>
-                <span>Expert Systems Era (1980s–1990s)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-dot preparation"></div>
-                <span>Preparation Era (1990s–2010s)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-dot modern"></div>
-                <span>Modern AI Era (2010s–Present)</span>
-            </div>
-        </div>
+        <aside class="legend-container" aria-labelledby="legend-heading">
+            <h2 id="legend-heading" class="sr-only">Era Legend</h2>
+            <ul class="legend" role="list">
+                <li class="legend-item">
+                    <span class="legend-dot foundations" aria-hidden="true"></span>
+                    <span>Foundations (1950s)</span>
+                </li>
+                <li class="legend-item">
+                    <span class="legend-dot golden-years" aria-hidden="true"></span>
+                    <span>Golden Years (1960s–1970s)</span>
+                </li>
+                <li class="legend-item">
+                    <span class="legend-dot funding-shift" aria-hidden="true"></span>
+                    <span>Funding Shift (1974–1980)</span>
+                </li>
+                <li class="legend-item">
+                    <span class="legend-dot expert-systems" aria-hidden="true"></span>
+                    <span>Expert Systems Era (1980s–1990s)</span>
+                </li>
+                <li class="legend-item">
+                    <span class="legend-dot preparation" aria-hidden="true"></span>
+                    <span>Preparation Era (1990s–2010s)</span>
+                </li>
+                <li class="legend-item">
+                    <span class="legend-dot modern" aria-hidden="true"></span>
+                    <span>Modern AI Era (2010s–Present)</span>
+                </li>
+            </ul>
+        </aside>
+    </main>
 
         <footer>
             <p>Timeline created for educational purposes | Data sourced from historical AI research and academic institutions</p>
-            <p style="margin-top: 10px;">&copy; 2026 <a href="https://cantus.us" target="_blank" style="color: #38bdf8; text-decoration: none;">Sable Cantus</a></p>
+            <p style="margin-top: 10px;">&copy; 2026 <a href="https://cantus.us" target="_blank" rel="noopener noreferrer" class="footer-link">Sable Cantus <span class="sr-only">(opens in new tab)</span></a></p>
         </footer>
     </div>
 
@@ -767,10 +1216,12 @@
             return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
         }
 
-        // Set theme
+        // Set theme with dynamic accessible announcement
         function setTheme(theme) {
             html.setAttribute('data-theme', theme);
-            themeIcon.textContent = theme === 'light' ? '🌙' : '☀️';
+            const isLight = theme === 'light';
+            themeIcon.textContent = isLight ? '🌙' : '☀️';
+            themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
             localStorage.setItem('theme', theme);
         }
 
