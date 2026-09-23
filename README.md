@@ -1,6 +1,6 @@
-# AI & LLM Development Timeline (1950–2026)
+# AI & LLM Development Timeline (1948–2026)
 
-Visual, interactive timeline tracking the major milestones of Artificial Intelligence and Large Language Models from Alan Turing's foundational 1950 paper through 2026 frontier models, physical AI, and autonomous science.
+Visual, interactive timeline tracking the major milestones of Artificial Intelligence and Large Language Models from Claude Shannon's foundational 1948 information theory paper through 2026 frontier models, physical AI, and autonomous science.
 
 ## [View Live Timeline](https://sc137.github.io/timeline-ai-llm/)
 
@@ -8,10 +8,11 @@ Visual, interactive timeline tracking the major milestones of Artificial Intelli
 
 ## Features
 
-- **37 Curated Milestones**: Chronological journey through six distinct eras (Foundations, Golden Years, Funding Shift, Expert Systems, Preparation, and Modern Era).
-- **Direct Primary Sources**: 20+ direct links to original landmark papers, announcements, and publications (Turing 1950, Backpropagation 1986, Attention Is All You Need 2017, GPT-4, DeepSeek-R1, and more).
+- **38 Curated Milestones**: Chronological journey through six distinct eras (Foundations, Golden Years, Funding Shift, Expert Systems, Preparation, and Modern Era).
+- **Direct Primary Sources**: 20+ direct links to original landmark papers, announcements, and publications (Shannon 1948, Turing 1950, Backpropagation 1986, Attention Is All You Need 2017, GPT-4, DeepSeek-R1, and more).
 - **Accessible Design (WCAG 2.1 AA)**: Engineered for high-contrast color ratios, semantic landmarks, screen-reader announcements, skip-links, and reduced-motion safety.
 - **Adaptive Theming**: Smooth toggle between dark and light modes with persistent preference storage.
+- **Slideshow Mode**: Use the small **Slides** button in the upper right or press `S` to present one milestone at a time. Each era has a subtle tint from the timeline palette. The right third shows a paper link and concise abstract summary, or additional context when no source is linked. Use the arrow keys or on-screen controls to move, and `Esc` or `Q` to exit.
 
 ---
 

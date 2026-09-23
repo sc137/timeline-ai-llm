@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Development Timeline (1950–2026)</title>
+    <title>AI Development Timeline (1948–2026)</title>
     <style>
         :root {
             /* Dark mode colors (default) */
@@ -178,6 +178,7 @@
         header {
             text-align: center;
             margin-bottom: 60px;
+            padding-top: 42px;
         }
 
         h1 {
@@ -517,6 +518,227 @@
             text-decoration: underline;
         }
 
+        .slideshow-launch,
+        .slide-button {
+            background: var(--badge-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--badge-border);
+            border-radius: 8px;
+            padding: 10px 16px;
+            font: inherit;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .slideshow-launch {
+            position: fixed;
+            top: 25px;
+            right: 84px;
+            z-index: 1000;
+            padding: 7px 10px;
+            font-size: 0.8rem;
+        }
+
+        .slideshow-main .timeline-era {
+            align-self: flex-start;
+            color: var(--slide-accent);
+            background: var(--slide-badge);
+        }
+
+        .slideshow-launch:hover,
+        .slide-button:not(:disabled):hover {
+            background: var(--badge-hover-bg);
+            border-color: var(--badge-hover-border);
+        }
+
+        .slide-button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        body.slideshow-open {
+            overflow: hidden;
+        }
+
+        .slideshow[hidden] {
+            display: none;
+        }
+
+        .slideshow {
+            --slide-rgb: 56, 189, 248;
+            --slide-accent: #7dd3fc;
+            --slide-wash: rgba(var(--slide-rgb), 0.08);
+            --slide-badge: rgba(var(--slide-rgb), 0.2);
+            position: fixed;
+            inset: 0;
+            z-index: 1100;
+            display: flex;
+            flex-direction: column;
+            background: radial-gradient(ellipse at 18% 35%, var(--slide-wash), transparent 65%),
+                linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+            color: var(--text-primary);
+        }
+
+        .slideshow[data-era="foundations"] { --slide-rgb: 245, 158, 11; --slide-accent: #fcd34d; }
+        .slideshow[data-era="golden-years"] { --slide-rgb: 236, 72, 153; --slide-accent: #f472b6; }
+        .slideshow[data-era="funding-shift"] { --slide-rgb: 99, 102, 241; --slide-accent: #a5b4fc; }
+        .slideshow[data-era="expert-systems"] { --slide-rgb: 16, 185, 129; --slide-accent: #6ee7b7; }
+        .slideshow[data-era="preparation"] { --slide-rgb: 249, 115, 22; --slide-accent: #fdba74; }
+        .slideshow[data-era="modern"] { --slide-rgb: 56, 189, 248; --slide-accent: #7dd3fc; }
+
+        [data-theme="light"] .slideshow {
+            --slide-wash: rgba(var(--slide-rgb), 0.06);
+            --slide-badge: rgba(var(--slide-rgb), 0.15);
+        }
+
+        [data-theme="light"] .slideshow[data-era="foundations"] { --slide-accent: #92400e; }
+        [data-theme="light"] .slideshow[data-era="golden-years"] { --slide-accent: #9f1239; }
+        [data-theme="light"] .slideshow[data-era="funding-shift"] { --slide-accent: #3730a3; }
+        [data-theme="light"] .slideshow[data-era="expert-systems"] { --slide-accent: #065f46; }
+        [data-theme="light"] .slideshow[data-era="preparation"] { --slide-accent: #9a3412; }
+        [data-theme="light"] .slideshow[data-era="modern"] { --slide-accent: #075985; }
+
+        .slideshow-topbar,
+        .slideshow-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 16px clamp(20px, 4vw, 64px);
+            border-color: var(--border-color);
+        }
+
+        .slideshow-topbar {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .slideshow-controls {
+            border-top: 1px solid var(--border-color);
+        }
+
+        .slide-progress,
+        .slide-hint {
+            color: var(--text-muted);
+        }
+
+        .slideshow-stage {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+            flex: 1;
+            min-height: 0;
+        }
+
+        .slideshow-main,
+        .slideshow-side {
+            overflow-y: auto;
+            padding: clamp(28px, 5vw, 80px);
+        }
+
+        .slideshow-main {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slideshow-main .timeline-year {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            color: var(--slide-accent);
+        }
+
+        .slideshow-main h2 {
+            font-size: clamp(2rem, 4vw, 3.8rem);
+            line-height: 1.15;
+            margin: 16px 0 24px;
+        }
+
+        .slideshow-main h2:focus {
+            outline: none;
+        }
+
+        .slideshow-main p {
+            max-width: 65ch;
+            color: var(--text-secondary);
+            font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+            line-height: 1.7;
+        }
+
+        .slideshow-side {
+            border-left: 1px solid var(--border-color);
+            background: linear-gradient(var(--slide-wash), var(--slide-wash)), var(--card-bg);
+        }
+
+        .slideshow-side-label {
+            color: var(--slide-accent);
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .slideshow-side h3 {
+            font-size: clamp(1.3rem, 2vw, 1.8rem);
+            line-height: 1.3;
+            margin: 14px 0 22px;
+        }
+
+        .slideshow-side p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .slide-source {
+            display: inline-block;
+            margin-top: 28px;
+            color: var(--link-color);
+            font-weight: 700;
+        }
+
+        .slide-source[hidden] {
+            display: none;
+        }
+
+        .slide-related {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .slide-related[hidden] {
+            display: none;
+        }
+
+        .slide-related h4 {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        .slide-related .slide-source {
+            margin-top: 16px;
+        }
+
+        @media (max-width: 800px) {
+            .slideshow-stage {
+                display: block;
+                overflow-y: auto;
+            }
+
+            .slideshow-main,
+            .slideshow-side {
+                overflow: visible;
+                padding: 28px 24px;
+            }
+
+            .slideshow-side {
+                border-left: 0;
+                border-top: 1px solid var(--border-color);
+            }
+
+            .slide-hint {
+                display: none;
+            }
+        }
+
         /* Vestibular & Motion Accessibility (WCAG 2.2.2 & 2.3.3) */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -545,14 +767,34 @@
     <div class="container">
         <header>
             <h1 id="timeline-heading">AI Development Timeline</h1>
-            <p class="subtitle">1950–2026 | Major Milestones in Artificial Intelligence</p>
+            <p class="subtitle">1948–2026 | Major Milestones in Artificial Intelligence</p>
+            <button class="slideshow-launch" id="slideshowLaunch" type="button" aria-keyshortcuts="S" title="Press S to open slideshow">Slides</button>
         </header>
 
         <main id="main-content" tabindex="-1">
         <section aria-labelledby="timeline-heading">
         <div class="timeline">
             <ol class="timeline-events" role="list">
-                <!-- 1. 1950 (left) -->
+                <!-- 1. 1948 (right) -->
+                <li class="timeline-event right era-foundations">
+                    <div class="timeline-content">
+                        <span class="timeline-year">1948</span>
+                        <span class="timeline-era">Foundations</span>
+                        <h2 class="timeline-title">Shannon Founds Information Theory</h2>
+                        <p class="timeline-description">Claude Shannon publishes "A Mathematical Theory of Communication," introducing a mathematical measure of information and establishing how messages can be encoded and transmitted reliably despite noise. His work becomes foundational to digital communication and later computing and AI.</p>
+                        <div class="paper-badge-container">
+                            <a href="https://people.math.harvard.edu/~ctm/home/text/others/shannon/entropy/entropy.pdf" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read paper: A Mathematical Theory of Communication (opens in new tab)">
+                                <span class="paper-icon" aria-hidden="true">📄</span>
+                                <span class="paper-title">A Mathematical Theory of Communication</span>
+                                <span class="paper-arrow" aria-hidden="true">↗</span>
+                                <span class="sr-only">(opens in new tab)</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-marker"></div>
+                </li>
+
+                <!-- 2. 1950 (left) -->
                 <li class="timeline-event left era-foundations">
                     <div class="timeline-content">
                         <span class="timeline-year">1950</span>
@@ -571,7 +813,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 2. 1956 (right) -->
+                <!-- 3. 1956 (right) -->
                 <li class="timeline-event right era-foundations">
                     <div class="timeline-content">
                         <span class="timeline-year">1956</span>
@@ -582,7 +824,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 3. 1958 (left) -->
+                <!-- 4. 1958 (left) -->
                 <li class="timeline-event left era-foundations">
                     <div class="timeline-content">
                         <span class="timeline-year">1958</span>
@@ -601,7 +843,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 4. 1963 (right) -->
+                <!-- 5. 1963 (right) -->
                 <li class="timeline-event right era-golden-years">
                     <div class="timeline-content">
                         <span class="timeline-year">1963</span>
@@ -612,7 +854,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 5. 1966 (left) -->
+                <!-- 6. 1966 (left) -->
                 <li class="timeline-event left era-golden-years">
                     <div class="timeline-content">
                         <span class="timeline-year">1966</span>
@@ -631,7 +873,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 6. 1969 (right) -->
+                <!-- 7. 1969 (right) -->
                 <li class="timeline-event right era-golden-years">
                     <div class="timeline-content">
                         <span class="timeline-year">1969</span>
@@ -642,7 +884,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 7. 1974 (left) -->
+                <!-- 8. 1974 (left) -->
                 <li class="timeline-event left era-funding-shift">
                     <div class="timeline-content">
                         <span class="timeline-year">1974</span>
@@ -653,7 +895,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 8. 1980 (right) -->
+                <!-- 9. 1980 (right) -->
                 <li class="timeline-event right era-expert-systems">
                     <div class="timeline-content">
                         <span class="timeline-year">1980</span>
@@ -664,7 +906,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 9. 1986 (left) -->
+                <!-- 10. 1986 (left) -->
                 <li class="timeline-event left era-expert-systems">
                     <div class="timeline-content">
                         <span class="timeline-year">1986</span>
@@ -683,7 +925,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 10. 1989 (right) -->
+                <!-- 11. 1989 (right) -->
                 <li class="timeline-event right era-expert-systems">
                     <div class="timeline-content">
                         <span class="timeline-year">1989</span>
@@ -702,7 +944,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 11. 1997 (left) -->
+                <!-- 12. 1997 (left) -->
                 <li class="timeline-event left era-preparation">
                     <div class="timeline-content">
                         <span class="timeline-year">1997</span>
@@ -713,7 +955,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 12. 1997 (right) -->
+                <!-- 13. 1997 (right) -->
                 <li class="timeline-event right era-preparation">
                     <div class="timeline-content">
                         <span class="timeline-year">1997</span>
@@ -732,7 +974,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 13. 2009 (left) -->
+                <!-- 14. 2009 (left) -->
                 <li class="timeline-event left era-preparation">
                     <div class="timeline-content">
                         <span class="timeline-year">2009</span>
@@ -751,7 +993,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 14. 2010 (right) -->
+                <!-- 15. 2010 (right) -->
                 <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2010</span>
@@ -762,7 +1004,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 15. 2012 (left) -->
+                <!-- 16. 2012 (left) -->
                 <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2012</span>
@@ -781,7 +1023,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 16. 2014 (right) -->
+                <!-- 17. 2014 (right) -->
                 <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2014</span>
@@ -792,7 +1034,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 17. 2014 (left) -->
+                <!-- 18. 2014 (left) -->
                 <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2014</span>
@@ -811,7 +1053,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 18. 2015 (right) -->
+                <!-- 19. 2015 (right) -->
                 <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2015</span>
@@ -830,7 +1072,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 19. 2016 (left) -->
+                <!-- 20. 2016 (left) -->
                 <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2016</span>
@@ -849,7 +1091,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 20. 2017 (right) -->
+                <!-- 21. 2017 (right) -->
                 <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2017</span>
@@ -868,7 +1110,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 21. 2018 (left) -->
+                <!-- 22. 2018 (left) -->
                 <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2018</span>
@@ -887,7 +1129,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 22. 2019 (right) -->
+                <!-- 23. 2019 (right) -->
                 <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2019</span>
@@ -906,7 +1148,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 23. 2020 (left) -->
+                <!-- 24. 2020 (left) -->
                 <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2020</span>
@@ -925,7 +1167,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 24. 2021 (right) -->
+                <!-- 25. 2021 (right) -->
                 <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2021</span>
@@ -944,7 +1186,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 25. 2021 (left) -->
+                <!-- 26. 2021 (left) -->
                 <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2021</span>
@@ -955,7 +1197,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 26. 2022 (right) -->
+                <!-- 27. 2022 (right) -->
                 <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2022</span>
@@ -974,7 +1216,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 27. 2023 (left) -->
+                <!-- 28. 2023 (left) -->
                 <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2023</span>
@@ -993,7 +1235,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 28. 2023 (right) -->
+                <!-- 29. 2023 (right) -->
                 <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2023</span>
@@ -1012,7 +1254,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 29. 2023 (left) -->
+                <!-- 30. 2023 (left) -->
                 <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2023</span>
@@ -1031,7 +1273,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 30. 2024 (right) -->
+                <!-- 31. 2024 (right) -->
                 <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2024</span>
@@ -1050,7 +1292,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 31. 2024 (left) -->
+                <!-- 32. 2024 (left) -->
                 <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2024</span>
@@ -1069,7 +1311,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 32. 2024 (right) -->
+                <!-- 33. 2024 (right) -->
                 <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2024</span>
@@ -1077,9 +1319,9 @@
                         <h2 class="timeline-title">Nobel Prizes Awarded for AI</h2>
                         <p class="timeline-description">The Nobel Prize in Physics is awarded to John Hopfield and Geoffrey Hinton for founding discoveries in artificial neural networks. The Nobel Prize in Chemistry is awarded to Demis Hassabis and John Jumper for AlphaFold protein structure prediction. Marks historic scientific validation of machine learning.</p>
                         <div class="paper-badge-container">
-                            <a href="https://www.nobelprize.org/prizes/physics/2024/press-release/" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read Nobel Prize press release (opens in new tab)">
+                            <a href="https://www.nobelprize.org/prizes/physics/2024/press-release/" target="_blank" rel="noopener noreferrer" class="paper-badge" aria-label="Read 2024 Nobel Prize in Physics press release (opens in new tab)">
                                 <span class="paper-icon" aria-hidden="true">📄</span>
-                                <span class="paper-title">The Nobel Prize in Physics & Chemistry 2024</span>
+                                <span class="paper-title">2024 Nobel Prize in Physics</span>
                                 <span class="paper-arrow" aria-hidden="true">↗</span>
                                 <span class="sr-only">(opens in new tab)</span>
                             </a>
@@ -1088,7 +1330,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 33. 2024 (left) -->
+                <!-- 34. 2024 (left) -->
                 <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2024</span>
@@ -1107,7 +1349,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 34. 2025 (right) -->
+                <!-- 35. 2025 (right) -->
                 <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2025</span>
@@ -1126,7 +1368,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 35. 2025 (left) -->
+                <!-- 36. 2025 (left) -->
                 <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2025</span>
@@ -1137,7 +1379,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 36. 2026 (right) -->
+                <!-- 37. 2026 (right) -->
                 <li class="timeline-event right era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2026</span>
@@ -1148,7 +1390,7 @@
                     <div class="timeline-marker"></div>
                 </li>
 
-                <!-- 37. 2026 (left) -->
+                <!-- 38. 2026 (left) -->
                 <li class="timeline-event left era-modern">
                     <div class="timeline-content">
                         <span class="timeline-year">2026</span>
@@ -1168,7 +1410,7 @@
             <ul class="legend" role="list">
                 <li class="legend-item">
                     <span class="legend-dot foundations" aria-hidden="true"></span>
-                    <span>Foundations (1950s)</span>
+                    <span>Foundations (1940s–1950s)</span>
                 </li>
                 <li class="legend-item">
                     <span class="legend-dot golden-years" aria-hidden="true"></span>
@@ -1199,6 +1441,37 @@
             <p style="margin-top: 10px;">&copy; 2026 <a href="https://cantus.us" target="_blank" rel="noopener noreferrer" class="footer-link">Sable Cantus <span class="sr-only">(opens in new tab)</span></a></p>
         </footer>
     </div>
+
+    <section class="slideshow" id="slideshow" role="dialog" aria-modal="true" aria-labelledby="slideTitle" aria-describedby="slideHelp" hidden>
+        <div class="slideshow-topbar">
+            <span class="slide-progress" id="slideProgress" aria-live="polite"></span>
+            <button class="slide-button" id="slideExit" type="button" aria-keyshortcuts="Escape Q">Exit slideshow</button>
+        </div>
+        <div class="slideshow-stage">
+            <article class="slideshow-main">
+                <span class="timeline-year" id="slideYear"></span>
+                <span class="timeline-era" id="slideEra"></span>
+                <h2 id="slideTitle" tabindex="-1"></h2>
+                <p id="slideDescription"></p>
+            </article>
+            <aside class="slideshow-side" aria-labelledby="slideSideHeading">
+                <span class="slideshow-side-label" id="slideSideLabel"></span>
+                <h3 id="slideSideHeading"></h3>
+                <p id="slideSideText"></p>
+                <a class="slide-source" id="slideSource" target="_blank" rel="noopener noreferrer" hidden><span id="slideSourceText">Open source</span> <span class="sr-only">(opens in new tab)</span></a>
+                <div class="slide-related" id="slideRelated" hidden>
+                    <h4 id="slideRelatedHeading"></h4>
+                    <p id="slideRelatedText"></p>
+                    <a class="slide-source" id="slideRelatedLink" target="_blank" rel="noopener noreferrer" hidden><span id="slideRelatedLinkText"></span> <span class="sr-only">(opens in new tab)</span></a>
+                </div>
+            </aside>
+        </div>
+        <div class="slideshow-controls">
+            <button class="slide-button" id="slidePrevious" type="button">← Previous</button>
+            <span class="slide-hint" id="slideHelp">Use ← and → to navigate; Esc or Q to exit</span>
+            <button class="slide-button" id="slideNext" type="button">Next →</button>
+        </div>
+    </section>
 
     <script>
         // Theme toggle functionality
@@ -1242,5 +1515,6 @@
             }
         });
     </script>
+    <script src="slideshow.js?v=20260923-deepseek-record" defer></script>
 </body>
 </html>
